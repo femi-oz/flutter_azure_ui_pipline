@@ -98,12 +98,6 @@ stages:
               mode: 'auto'
               channel: 'stable'
               version: 'latest'
-          
-          - task: JavaToolInstaller@0
-              inputs:
-                versionSpec: '11'
-                jdkArchitectureOption: 'x64'
-                jdkSourceOption: 'PreInstalled'
 
           - task: FlutterBuild@0
             displayName: "Build application"
