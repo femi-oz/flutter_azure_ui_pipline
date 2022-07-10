@@ -1,0 +1,4 @@
+#Sun Jul 10 11:41:36 WAT 2022
+base.0=/Users/oz/Projects/DevOpsProjects/FlutterProjects/ui_flutter/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
