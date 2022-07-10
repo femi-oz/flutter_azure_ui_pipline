@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/oz/Projects/DevOpsProjects/FlutterProjects/ui_flutter/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
+            "outputFile": "/Users/oz/Projects/DevOpsProjects/FlutterProjects/flutter_azure_ui_pipline/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/Users/oz/Projects/DevOpsProjects/FlutterProjects/ui_flutter/android/app/src/main/res/values-night/styles.xml",
+                    "source": "/Users/oz/Projects/DevOpsProjects/FlutterProjects/flutter_azure_ui_pipline/android/app/src/main/res/values-night/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

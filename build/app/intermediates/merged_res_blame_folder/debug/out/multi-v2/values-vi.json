@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/oz/Projects/DevOpsProjects/FlutterProjects/ui_flutter/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-vi/values-vi.xml",
+            "outputFile": "/Users/oz/Projects/DevOpsProjects/FlutterProjects/flutter_azure_ui_pipline/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-vi/values-vi.xml",
             "map": [
                 {
                     "source": "/Users/oz/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/values-vi/values-vi.xml",
