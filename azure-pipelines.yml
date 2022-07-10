@@ -2,7 +2,7 @@ trigger:
   - main
 
 pool:
-  vmImage: macOS_latest
+  vmImage: macOS-12
 
 stages:
 - stage: AndroidStage
