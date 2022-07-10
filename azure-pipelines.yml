@@ -24,7 +24,7 @@ stages:
             name: key
             displayName: Download signing key
             inputs:
-              secureFile: 'key.jks'
+              secureFile: 'upload-keystore.jks'
 
           - task: Bash@3
             displayName: Copy config files
@@ -32,10 +32,10 @@ stages:
               targetType: 'inline'
               script: |
                 cp $(keyprop.secureFilePath) $(Build.SourcesDirectory)/android/key.properties
-                cp $(key.secureFilePath) $(Build.SourcesDirectory)/android/app/key.jks
+                cp $(key.secureFilePath) $(Build.SourcesDirectory)/android/app/upload-keystore.jks
 
                 echo "key.properties copied to $(Build.SourcesDirectory)/android/key.properties"
-                echo "key.jks copied to $(Build.SourcesDirectory)/android/app/key.jks"
+                echo "upload-keystore.jks copied to $(Build.SourcesDirectory)/android/app/upload-keystore.jks"
           - task: FlutterInstall@0
             displayName: "Install Flutter SDK"
             inputs:
