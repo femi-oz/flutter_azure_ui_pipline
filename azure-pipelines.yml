@@ -46,7 +46,7 @@ stages:
     - task: FlutterBuild@0
       displayName: "Build application"
       inputs:
-        target: 'aab'
+        target: 'apk'
         projectDirectory: '$(Build.SourcesDirectory)'
 
     - task: FlutterTest@0
@@ -64,9 +64,9 @@ stages:
         flattenFolders: true
 
     - task: PublishBuildArtifacts@1
-      displayName: "Publish AAB file"
+      displayName: "Publish APK file"
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'AAB'
+        ArtifactName: 'apk'
         publishLocation: 'Container'
 
