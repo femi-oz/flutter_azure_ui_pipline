@@ -68,7 +68,7 @@ stages:
     - task: CopyFiles@2
       displayName: "Copy app to staging directory"
       inputs:
-        sourceFolder: '$(Agent.BuildDirectory)'
+        sourceFolder: '$(Build.SourcesDirectory)'
         contents: '**/bundle/**'
         targetFolder: '$(Build.StagingDirectory)'
         flattenFolders: true
