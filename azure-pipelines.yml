@@ -26,7 +26,7 @@ stages:
       inputs:
         apkFiles: '**/*.apk'
         apksign: true
-        apksignerKeystoreFile: "upload.jks.jks"
+        apksignerKeystoreFile: "upload-keystore.jks"
         apksignerKeystorePassword: "letsPlay"
         apksignerKeystoreAlias: "upload"
         apksignerKeyPassword: "letsPlay"
