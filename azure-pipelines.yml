@@ -1,8 +1,8 @@
 trigger:
-  - main
+  - master
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: macOS-11
 
 stages:
 - stage: AndroidStage
@@ -14,18 +14,21 @@ stages:
     displayName: Android
     steps: 
 
+    # replace "key.properties" with your secure file name
     - task: DownloadSecureFile@1
       name: keyprop
       displayName: Download key properties file
       inputs:
-        secureFile: 'key.properties'
+        secureFile: 'key.properties' 
 
+    # replace "key.jks" with your secure file name
     - task: DownloadSecureFile@1
       name: key
       displayName: Download signing key
       inputs:
         secureFile: 'upload-keystore.jks'
 
+    # adjust paths and file names here
     - task: Bash@3
       displayName: Copy config files
       inputs:
@@ -36,6 +39,7 @@ stages:
           
           echo "key.properties copied to $(Build.SourcesDirectory)/android/key.properties"
           echo "upload-keystore.jks copied to $(Build.SourcesDirectory)/android/app/upload-keystore.jks"
+
     - task: FlutterInstall@0
       displayName: "Install Flutter SDK"
       inputs:
@@ -46,7 +50,7 @@ stages:
     - task: FlutterBuild@0
       displayName: "Build application"
       inputs:
-        target: 'apk'
+        target: 'aab'
         projectDirectory: '$(Build.SourcesDirectory)'
 
     - task: FlutterTest@0
@@ -64,9 +68,68 @@ stages:
         flattenFolders: true
 
     - task: PublishBuildArtifacts@1
-      displayName: "Publish APK file"
+      displayName: "Publish AAB file"
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'apk'
+        ArtifactName: 'AAB'
         publishLocation: 'Container'
 
+- stage: iOSStage
+  dependsOn: []
+  displayName: iOS
+  jobs:
+ 
+  - job: iOSJob
+    displayName: iOS
+    steps: 
+          
+    # replace "iosKey" and "yourPwd" with your secure file name and password
+    - task: InstallAppleCertificate@2
+      displayName: Install certificate
+      inputs:
+        certSecureFile: 'iosKey'
+        certPwd: 'yourPwd'
+        keychain: 'temp'
+    
+    # replace "ios_Profile.mobileprovision" with your secure file name
+    - task: InstallAppleProvisioningProfile@1
+      displayName: Install provisioning file
+      inputs:
+        provisioningProfileLocation: 'secureFiles'
+        provProfileSecureFile: 'ios_Profile.mobileprovision'
+        
+    - task: FlutterInstall@0
+      displayName: "Install Flutter SDK"
+      inputs:
+        mode: 'auto'
+        channel: 'stable'
+        version: 'latest'
+
+    # adjust path to the *.plist file
+    - task: FlutterBuild@0
+      displayName: "Build application"
+      inputs:
+        target: ipa
+        projectDirectory: '$(Build.SourcesDirectory)'
+        exportOptionsPlist: 'ios/exportOptions.plist'
+
+    - task: FlutterTest@0
+      displayName: "Run unit tests"
+      inputs:
+        generateCodeCoverageReport: true
+        projectDirectory: '$(Build.SourcesDirectory)'
+
+    - task: CopyFiles@2
+      displayName: "Copy app to staging directory"
+      inputs:
+        sourceFolder: '$(Agent.BuildDirectory)'
+        contents: '**/ipa/*.ipa'
+        targetFolder: '$(Build.StagingDirectory)'
+        flattenFolders: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: "Publish IPA file"
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'IPA'
+        publishLocation: 'Container'
