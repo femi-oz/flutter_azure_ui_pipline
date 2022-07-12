@@ -2,7 +2,7 @@ trigger:
   - '*'
 
 pool:
-  vmImage: macOS-latest
+  vmImage: macOS-11
 
 stages:
 - stage: AndroidStage
@@ -12,14 +12,14 @@ stages:
 
   - job: AndroidJob
     displayName: Android
-    steps: 
+    steps:
 
     # replace "key.properties" with your secure file name
     - task: DownloadSecureFile@1
       name: keyprop
       displayName: Download key properties file
       inputs:
-        secureFile: 'key.properties' 
+        secureFile: 'key.properties'
 
     # replace "key.jks" with your secure file name
     - task: DownloadSecureFile@1
@@ -27,6 +27,12 @@ stages:
       displayName: Download signing key
       inputs:
         secureFile: 'upload-keystore.jks'
+
+    - task: JavaToolInstaller@0
+      inputs:
+        versionSpec: '11'
+        jdkArchitectureOption: 'x64'
+        jdkSourceOption: 'PreInstalled'
 
     # adjust paths and file names here
     - task: Bash@3
@@ -36,16 +42,10 @@ stages:
         script: |
           cp $(keyprop.secureFilePath) $(Build.SourcesDirectory)/android/key.properties
           cp $(key.secureFilePath) $(Build.SourcesDirectory)/android/app/upload-keystore.jks
-          
+
           echo "key.properties copied to $(Build.SourcesDirectory)/android/key.properties"
           echo "upload-keystore.jks copied to $(Build.SourcesDirectory)/android/app/upload-keystore.jks"
 
-    - task: JavaToolInstaller@0
-    inputs:
-      versionSpec: '11'
-      jdkArchitectureOption: 'x64'
-      jdkSourceOption: 'PreInstalled'
-    
     - task: FlutterInstall@0
       displayName: "Install Flutter SDK"
       inputs:
@@ -68,7 +68,7 @@ stages:
     - task: CopyFiles@2
       displayName: "Copy app to staging directory"
       inputs:
-        sourceFolder: '$(Build.SourcesDirectory)'
+        sourceFolder: '$(Agent.BuildDirectory)'
         contents: '**/bundle/**'
         targetFolder: '$(Build.StagingDirectory)'
         flattenFolders: true
@@ -79,4 +79,3 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'APK'
         publishLocation: 'Container'
-
