@@ -19,7 +19,7 @@ stages:
         target: 'apk'
         projectDirectory: '.'
         buildFlavour: 'dev'
-        entryPoint: 'lib/main_dev.dart'
+        #entryPoint: 'lib/main_dev.dart'
         iosCodesign: false
     - task: AndroidSigning@3
       displayName: 'Signing and aligning APK file(s) **/*.apk'
