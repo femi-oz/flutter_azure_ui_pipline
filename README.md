@@ -1,4 +1,4 @@
-# ui_flutter
+# quick_flutter
 
 A new Flutter project.
 
