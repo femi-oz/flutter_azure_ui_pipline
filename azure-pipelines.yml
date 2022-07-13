@@ -56,7 +56,7 @@ stages:
     - task: FlutterBuild@0
       displayName: "Build application"
       inputs:
-        target: 'apk'
+        target: 'aab'
         projectDirectory: '$(Build.SourcesDirectory)'
 
     - task: FlutterTest@0
@@ -69,7 +69,7 @@ stages:
       displayName: "Copy app to staging directory"
       inputs:
         sourceFolder: '$(Build.SourcesDirectory)'
-        contents: '**/*.apk'
+        contents: '**/*.aab'
         targetFolder: '$(Build.artifactStagingDirectory)'
         flattenFolders: true
         OverWrite: true
@@ -77,8 +77,8 @@ stages:
         
 
     - task: PublishBuildArtifacts@1
-      displayName: "Publish APK file"
+      displayName: "Publish AAB file"
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'APK Artifact'
+        ArtifactName: 'AAB Artifact'
         publishLocation: 'Container'
