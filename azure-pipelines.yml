@@ -80,3 +80,4 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'APK Artifact'
         publishLocation: 'Container'
+        
